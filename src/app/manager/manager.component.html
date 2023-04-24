@@ -1,0 +1,15 @@
+<app-manager-header (selectCategories)="showCategories()"
+(selectChecks)="showChecks()"
+(selectEmployees)="showEmployees()"
+(selectProducts)="showProducts()"
+(selectClients)="showClients()"
+(selectStoreProducts)="showStoreProducts()"></app-manager-header>
+
+<app-body *ngIf="selectedHeaderOption==='employees'" [menuItems]="['Show all employees', 'Find employee phone and address by surname', 'Find all cashiers']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='products'" [menuItems]="['1']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='store_products'" [menuItems]="['2']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='clients'" [menuItems]="['3']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='checks'" [menuItems]="['4']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='categories'" [menuItems]="['5']"></app-body>
+
+<!--<app-body *ngIf="selectedHeaderOption==='employees'"></app-body>-->

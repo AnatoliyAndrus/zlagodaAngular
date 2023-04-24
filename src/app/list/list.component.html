@@ -1,0 +1,13 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items" class="clickable-row" (click) = "onItemClick(item)">
+      <td *ngFor="let prop of getObjectKeys(item)">
+        {{prop}}:{{item[prop]}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
