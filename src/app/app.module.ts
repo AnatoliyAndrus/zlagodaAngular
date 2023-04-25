@@ -8,6 +8,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ManagerComponent } from './manager/manager.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { BodyComponent } from './body/body.component';
+import {FormsModule} from "@angular/forms";
+import { AddEmployeeFormComponent } from './add-employee-form/add-employee-form.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -18,12 +22,19 @@ import { BodyComponent } from './body/body.component';
     ManagerComponent,
     SideMenuComponent,
     BodyComponent,
+    AddEmployeeFormComponent,
   ],
   imports: [
+    MatRadioModule,
+    NgbModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+  useValue: { color: 'accent' },}],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {
