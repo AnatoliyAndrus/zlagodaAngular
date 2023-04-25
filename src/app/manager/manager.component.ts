@@ -9,12 +9,12 @@ import {ManagerHeaderComponent} from "../manager-header/manager-header.component
 export class ManagerComponent {
   selectedHeaderOption:string='employees';
 
-  showEmployees() {console.log("this works!"); this.selectedHeaderOption = 'employees';}
-  showProducts() {console.log("this works!"); this.selectedHeaderOption = 'products';}
-  showStoreProducts() {console.log("this works!"); this.selectedHeaderOption = 'store_products';}
-  showClients() {console.log("this works!"); this.selectedHeaderOption = 'clients';}
-  showChecks() {console.log("this works!"); this.selectedHeaderOption = 'checks';}
-  showCategories() {console.log("this works!"); this.selectedHeaderOption = 'categories';}
+  showEmployees() { this.selectedHeaderOption = 'employees';}
+  showProducts() {this.selectedHeaderOption = 'products';}
+  showStoreProducts() { this.selectedHeaderOption = 'store_products';}
+  showClients() {this.selectedHeaderOption = 'clients';}
+  showChecks() {this.selectedHeaderOption = 'checks';}
+  showCategories() {this.selectedHeaderOption = 'categories';}
 
 
 

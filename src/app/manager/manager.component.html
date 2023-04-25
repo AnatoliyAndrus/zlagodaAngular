@@ -5,11 +5,11 @@
 (selectClients)="showClients()"
 (selectStoreProducts)="showStoreProducts()"></app-manager-header>
 
-<app-body *ngIf="selectedHeaderOption==='employees'" [menuItems]="['Add employee', 'Edit employee', 'Remove employee', 'Report', 'Show all employees sorted by surname', 'Show cashiers sorted by surname', 'Search by surname']"></app-body>
-<app-body *ngIf="selectedHeaderOption==='products'" [menuItems]="['Add product', 'Edit product', 'Remove product', 'Report', 'Show all products sorted by name', 'Search by category sorted by name', 'Total amount of product sold in concrete period']"></app-body>
-<app-body *ngIf="selectedHeaderOption==='store_products'" [menuItems]="['Add store product', 'Edit store product', 'Remove store product', 'Report', 'Show all store products sorted by amount', 'Get info by UPC', 'Show all promo products sorted by name/amount', 'Show all non-promo products sorted by name/amount']"></app-body>
-<app-body *ngIf="selectedHeaderOption==='clients'" [menuItems]="['Add client', 'Edit client', 'Remove client', 'Report', 'Show all clients sorted by surname', 'Show all clients with discount sorted by surname']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='employees'" [menuItems]="['Add employee', 'Edit employee', 'Remove employee', 'Report employee', 'Show all employees sorted by surname', 'Show cashiers sorted by surname', 'Search by surname']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='products'" [menuItems]="['Add product', 'Edit product', 'Remove product', 'Report products', 'Show all products sorted by name', 'Search by category sorted by name', 'Total amount of product sold in concrete period']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='store_products'" [menuItems]="['Add store product', 'Edit store product', 'Remove store product', 'Report store products', 'Show all store products sorted by amount', 'Get info by UPC', 'Show all promo products sorted by name/amount', 'Show all non-promo products sorted by name/amount']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='clients'" [menuItems]="['Add client', 'Edit client', 'Remove client', 'Report clients', 'Show all clients sorted by surname', 'Show all clients with discount sorted by surname']"></app-body>
 <app-body *ngIf="selectedHeaderOption==='checks'" [menuItems]="['Remove check', 'Show all checks of cashier in period of time', 'Show all checks in period of time', 'Show total income from all checks of cashier in period of time', 'Show total income from all checks in period of time']"></app-body>
-<app-body *ngIf="selectedHeaderOption==='categories'" [menuItems]="['Add category', 'Edit category', 'Remove category', 'Report', 'Show all categories sorted by name']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='categories'" [menuItems]="['Add category', 'Edit category', 'Remove category', 'Report categories', 'Show all categories sorted by name']"></app-body>
 
 <!--<app-body *ngIf="selectedHeaderOption==='employees'"></app-body>-->

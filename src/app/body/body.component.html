@@ -1,12 +1,8 @@
 <app-side-menu [menuItems]="menuItems"
 (onButtonClickFunction)="showCertainOption($event)"></app-side-menu>
 
-<app-list *ngIf="currentMenuItem==='something'"></app-list>
-<app-list *ngIf="currentMenuItem==='something else'"></app-list>
-
-
 <div class="modal-body" *ngIf="currentMenuItem==='Add employee'">
-  <form #addForm="ngForm" id="add-employee-form" (ngSubmit)="onAddEmloyee(addForm)">
+  <form #addEmployeeForm="ngForm" id="add-employee-form" (ngSubmit)="onAddEmployee(addEmployeeForm)">
     <div class="form-group">
       <label for="idEmployee">Employee's ID: </label>
       <input type="text" ngModel name="idEmployee" class="form-control" id="idEmployee" placeholder="Id Employee" required>
@@ -66,8 +62,373 @@
     </div>
 
     <div class="modal-footer">
-      <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+      <button [disabled]="addEmployeeForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
     </div>
   </form>
 </div>
+<div class="modal-body" *ngIf="currentMenuItem==='Edit employee'">
+  <form #updateEmployeeForm="ngForm" id="update-employee-form" (ngSubmit)="onUpdateEmployee(updateEmployeeForm)">
+    <div class="form-group">
+      <label for="idEditEmployee">Employee's ID: </label>
+      <input type="text" ngModel name="idEmployee" class="form-control" id="idEditEmployee" placeholder="Id Employee" required>
+    </div>
+    <div class="form-group">
+      <label for="passwordEdit">New password: </label>
+      <input type="password" ngModel name="password" class="form-control" id="passwordEdit" placeholder="Password" required>
+    </div>
+    <div class="form-group">
+      <label for="emplNameEdit">New name: </label>
+      <input type="text" ngModel name="emplName" class="form-control" id="emplNameEdit" placeholder="Employee Name" required>
+    </div>
+    <div class="form-group">
+      <label for="emplSurnameEdit">New surname: </label>
+      <input type="text" ngModel name="emplSurname" class="form-control" id="emplSurnameEdit" placeholder="Employee Surname" required>
+    </div>
+    <div class="form-group">
+      <label for="emplPatronymicEdit">New patronymic: </label>
+      <input type="text" ngModel name="emplPatronymic" class="form-control" id="emplPatronymicEdit" placeholder="Employee Patronymic">
+    </div>
+
+    <mat-radio-group ngModel name = "emplRoleEdit" aria-label="New role: ">
+      <mat-radio-button value="Manager">Manager</mat-radio-button>
+      <mat-radio-button value="Cashier">Cashier</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="form-outline">
+      <label class="form-label" for="salaryEdit">New salary</label>
+      <input type="number" ngModel name = "salary" id="salaryEdit" class="form-control" />
+    </div>
+
+    <div class="form-outline">
+      <label class="form-label" for="dateOfBirthEdit">New date of birth</label>
+      <input type="date" ngModel name = "dateOfBirth" id="dateOfBirthEdit" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="dateOfStartEdit">New date of start</label>
+      <input type="date" ngModel name = "dateOfStart" id="dateOfStartEdit" class="form-control" required/>
+    </div>
+
+
+    <div class="form-group">
+      <label for="phoneNumberEdit">Phone number: </label>
+      <input type="text" ngModel name="phoneNumber" class="form-control" id="phoneNumberEdit" placeholder="Phone number" required>
+    </div>
+
+    <div class="form-row">
+      <div class="col-7">
+        <input type="text" ngModel name="city"  class="form-control" placeholder="New city" required>
+      </div>
+      <div class="col">
+        <input type="text" ngModel name="street" class="form-control" placeholder="New street" required>
+      </div>
+      <div class="col">
+        <input ngModel name="zipCode" type="text" class="form-control" placeholder="New Zip Code" required>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button [disabled]="updateEmployeeForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Remove employee'">
+  <form #removeEmployeeForm="ngForm" id="remove-employee-form" (ngSubmit)="onRemoveEmployee(removeEmployeeForm)">
+    <div class="form-group">
+      <label for="idEmployeeRemove">Employee's ID: </label>
+      <input type="text" ngModel name="idEmployee" class="form-control" id="idEmployeeRemove" placeholder="Id of Employee to remove" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="removeEmployeeForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Add product'">
+  <form #addProductForm="ngForm" id="add-product-form" (ngSubmit)="onAddProduct(addProductForm)">
+    <div class="form-group">
+      <label for="productNameAdd">Name: </label>
+      <input type="text" ngModel name="productName" class="form-control" id="productNameAdd" placeholder="Product name" required>
+    </div>
+    <div class="form-group">
+      <label for="categoryNameAdd">Category name: </label>
+      <input type="text" ngModel name="categoryName" class="form-control" id="categoryNameAdd" placeholder="Category name" required>
+    </div>
+    <div class="form-group">
+      <label for="manufacturerAdd">Manufacturer: </label>
+      <input type="text" ngModel name="manufacturer" class="form-control" id="manufacturerAdd" placeholder="manufacturer">
+    </div>
+    <div class="form-group">
+      <label for="characteristicsAdd">Characteristics: </label>
+      <input type="text" ngModel name="characteristics" class="form-control" id="characteristicsAdd" placeholder="characteristics">
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="addProductForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Edit product'">
+  <form #updateProductForm="ngForm" id="update-product-form" (ngSubmit)="onUpdateProduct(updateProductForm)">
+    <div class="form-group">
+      <label for="productNameEdit">Name: </label>
+      <input type="text" ngModel name="currentName" class="form-control" id="productNameEdit" placeholder="current product name" required>
+    </div>
+    <div class="form-group">
+      <label for="categoryNameEdit">New category name: </label>
+      <input type="text" ngModel name="categoryName" class="form-control" id="categoryNameEdit" placeholder="category name" required>
+    </div>
+    <div class="form-group">
+      <label for="productNewNameEdit">New name: </label>
+      <input type="text" ngModel name="newName" class="form-control" id="productNewNameEdit" placeholder="new product name" required>
+    </div>
+    <div class="form-group">
+      <label for="manufacturerEdit">New manufacturer: </label>
+      <input type="text" ngModel name="manufacturer" class="form-control" id="manufacturerEdit" placeholder="new manufacturer">
+    </div>
+    <div class="form-group">
+      <label for="characteristicsEdit">New characteristics: </label>
+      <input type="text" ngModel name="characteristics" class="form-control" id="characteristicsEdit" placeholder="new characteristics">
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="updateProductForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Remove product'">
+  <form #removeProductForm="ngForm" id="remove-product-form" (ngSubmit)="onRemoveProduct(removeProductForm)">
+    <div class="form-group">
+      <label for="productNameRemove">Name: </label>
+      <input type="text" ngModel name="productName" class="form-control" id="productNameRemove" placeholder="product name" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="removeProductForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Add store product'">
+  <form #addStoreProductForm="ngForm" id="add-store-product-form" (ngSubmit)="onAddStoreProduct(addStoreProductForm)">
+    <div class="form-group">
+      <label for="storeProductUPCAdd">UPC: </label>
+      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCAdd" placeholder="UPC" required>
+    </div>
+    <div class="form-group">
+      <label for="storeProductNameAdd">Product name: </label>
+      <input type="text" ngModel name="productName" class="form-control" id="storeProductNameAdd" placeholder="product name" required>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="sellingPriceAdd">Selling price: </label>
+      <input type="number" ngModel name = "sellingPrice" id="sellingPriceAdd" class="form-control" />
+    </div>
+    <div>
+      <label class="form-label" for="productNumberAdd">Products number: </label>
+      <input type="number" ngModel name = "productsNumber" id="productNumberAdd" class="form-control" />
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="expirationDateAdd">Expiration date</label>
+      <input type="date" ngModel name = "expirationDate" id="expirationDateAdd" class="form-control" required/>
+    </div>
+    <mat-radio-group ngModel name = "promotionalProduct" aria-label="Is promotional: ">
+      <mat-radio-button value="true">Yes</mat-radio-button>
+      <mat-radio-button value="false">No</mat-radio-button>
+    </mat-radio-group>
+
+
+    <div class="modal-footer">
+      <button [disabled]="addStoreProductForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Edit store product'">
+  <form #updateStoreProductForm="ngForm" id="update-store-product-form" (ngSubmit)="onUpdateStoreProduct(updateStoreProductForm)">
+    <div class="form-group">
+      <label for="storeProductUPCEdit">UPC: </label>
+      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCEdit" placeholder="UPC" required>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="sellingPriceEdit">New selling price: </label>
+      <input type="number" ngModel name = "sellingPrice" id="sellingPriceEdit" class="form-control" />
+    </div>
+    <div>
+      <label class="form-label" for="productNumberEdit">New products number: </label>
+      <input type="number" ngModel name = "productsNumber" id="productNumberEdit" class="form-control" />
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="expirationDateEdit">New expiration date</label>
+      <input type="date" ngModel name = "expirationDate" id="expirationDateEdit" class="form-control" required/>
+    </div>
+    <mat-radio-group ngModel name = "promotionalProduct" aria-label="Is promotional: ">
+      <mat-radio-button value="true">Is promotional</mat-radio-button>
+      <mat-radio-button value="false">Is not promotional</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="modal-footer">
+      <button [disabled]="updateStoreProductForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Remove store product'">
+  <form #removeStoreProductForm="ngForm" id="remove-store-product-form" (ngSubmit)="onRemoveStoreProduct(removeStoreProductForm)">
+    <div class="form-group">
+      <label for="storeProductUPCRemove">UPC: </label>
+      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCRemove" placeholder="UPC" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="removeStoreProductForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Add client'">
+  <form #addCustomerCardForm="ngForm" id="add-customer-card-form" (ngSubmit)="onAddCustomerCard(addCustomerCardForm)">
+    <div class="form-group">
+      <label for="cardNumberAdd">Card number: </label>
+      <input type="text" ngModel name="cardNumber" class="form-control" id="cardNumberAdd" placeholder="Card Number" required>
+    </div>
+    <div class="form-group">
+      <label for="custNameAdd">Customer name: </label>
+      <input type="text" ngModel name="custName" class="form-control" id="custNameAdd" placeholder="Customer name" required>
+    </div>
+    <div class="form-group">
+      <label for="custSurnameAdd">Customer surname: </label>
+      <input type="text" ngModel name="custSurname" class="form-control" id="custSurnameAdd" placeholder="Customer surname" required>
+    </div>
+    <div class="form-group">
+      <label for="custPatronymicAdd">Customer patronymic: </label>
+      <input type="text" ngModel name="custPatronymic" class="form-control" id="custPatronymicAdd" placeholder="Customer patronymic">
+    </div>
+    <div class="form-group">
+      <label for="phoneNumberAdd">Phone number: </label>
+      <input type="text" ngModel name="phoneNumber" class="form-control" id="phoneNumberAdd" placeholder="phone" required>
+    </div>
+    <div class="form-row">
+      <div class="col-7">
+        <input type="text" ngModel name="city"  class="form-control" placeholder="City">
+      </div>
+      <div class="col">
+        <input type="text" ngModel name="street" class="form-control" placeholder="Street">
+      </div>
+      <div class="col">
+        <input ngModel name="zipCode" type="text" class="form-control" placeholder="Zip Code">
+      </div>
+    </div>
+    <div class="slidecontainer">
+      <label for="percentAdd">Percent: </label><br>
+      <input type="range" ngModel name="percent" min="0" max="100" value="50" class="slider" id="percentAdd">
+    </div>
+
+    <div class="modal-footer">
+      <button [disabled]="addCustomerCardForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Edit client'">
+  <form #updateCustomerCardForm="ngForm" id="update-customer-card-form" (ngSubmit)="onUpdateCustomerCard(updateCustomerCardForm)">
+    <div class="form-group">
+      <label for="cardNumberEdit">Card number: </label>
+      <input type="text" ngModel name="cardNumber" class="form-control" id="cardNumberEdit" placeholder="Card Number" required>
+    </div>
+    <div class="form-group">
+      <label for="custNameEdit">New customer name: </label>
+      <input type="text" ngModel name="custName" class="form-control" id="custNameEdit" placeholder="new name" required>
+    </div>
+    <div class="form-group">
+      <label for="custSurnameEdit">New customer surname: </label>
+      <input type="text" ngModel name="custSurname" class="form-control" id="custSurnameEdit" placeholder="new surname" required>
+    </div>
+    <div class="form-group">
+      <label for="custPatronymicEdit">New patronymic: </label>
+      <input type="text" ngModel name="custPatronymic" class="form-control" id="custPatronymicEdit" placeholder="new patronymic">
+    </div>
+    <div class="form-group">
+      <label for="customerPhoneNumberEdit">New phone number: </label>
+      <input type="text" ngModel name="phoneNumber" class="form-control" id="customerPhoneNumberEdit" placeholder="new phone" required>
+    </div>
+    <div class="form-row">
+      <div class="col-7">
+        <input type="text" ngModel name="city"  class="form-control" placeholder="new city">
+      </div>
+      <div class="col">
+        <input type="text" ngModel name="street" class="form-control" placeholder="new street">
+      </div>
+      <div class="col">
+        <input ngModel name="zipCode" type="text" class="form-control" placeholder="new Zip Code">
+      </div>
+    </div>
+    <div class="slidecontainer">
+      <label for="percentEdit">New percent: </label><br>
+      <input type="range" ngModel name="percent" min="0" max="100" value="50" class="slider" id="percentEdit">
+    </div>
+
+    <div class="modal-footer">
+      <button [disabled]="updateCustomerCardForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Remove client'">
+  <form #removeCustomerCardForm="ngForm" id="remove-customer-card-form" (ngSubmit)="onRemoveCustomerCard(removeCustomerCardForm)">
+    <div class="form-group">
+      <label for="cardNumberRemove">Card number: </label>
+      <input type="text" ngModel name="cardNumber" class="form-control" id="cardNumberRemove" placeholder="Card Number" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="removeCustomerCardForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Remove check'">
+  <form #removeCheckForm="ngForm" id="remove-check-form" (ngSubmit)="onRemoveCheck(removeCheckForm)">
+    <div class="form-group">
+      <label for="checkNumberRemove">Check number: </label>
+      <input type="text" ngModel name="checkNumber" class="form-control" id="checkNumberRemove" placeholder="check number" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="removeCheckForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Add category'">
+  <form #addCategoryForm="ngForm" id="add-category-form" (ngSubmit)="onAddCategory(addCategoryForm)">
+    <div class="form-group">
+      <label for="categoryCategoryNameAdd">Category name: </label>
+      <input type="text" ngModel name="categoryName" class="form-control" id="categoryCategoryNameAdd" placeholder="category name" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="addCategoryForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Edit category'">
+  <form #updateCategoryForm="ngForm" id="update-category-form" (ngSubmit)="onUpdateCategory(updateCategoryForm)">
+    <div class="form-group">
+      <label for="currentCategoryNameEdit">Category name: </label>
+      <input type="text" ngModel name="currentName" class="form-control" id="currentCategoryNameEdit" placeholder="current category name" required>
+    </div>
+    <div class="form-group">
+      <label for="newCategoryNameEdit">New category name: </label>
+      <input type="text" ngModel name="newName" class="form-control" id="newCategoryNameEdit" placeholder="new category name" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="updateCategoryForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Remove category'">
+  <form #removeCategoryForm="ngForm" id="remove-category-form" (ngSubmit)="onRemoveCategory(removeCategoryForm)">
+    <div class="form-group">
+      <label for="categoryCategoryNameRemove">Category name: </label>
+      <input type="text" ngModel name="categoryName" class="form-control" id="categoryCategoryNameRemove" placeholder="category name" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="removeCategoryForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<app-list *ngIf="currentMenuItem==='Report employee'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Report clients'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Report products'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Report store products'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Report categories'" [items]="currentItemsInList"></app-list>
 

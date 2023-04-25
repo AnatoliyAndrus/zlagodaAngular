@@ -3,7 +3,7 @@
     <thead>
     </thead>
     <tbody>
-    <tr *ngFor="let item of items" class="clickable-row" (click) = "onItemClick(item)">
+    <tr *ngFor="let item of items" class="clickable-row">
       <td *ngFor="let prop of getObjectKeys(item)">
         {{prop}}:{{item[prop]}}
       </td>

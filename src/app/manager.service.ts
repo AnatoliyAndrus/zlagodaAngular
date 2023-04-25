@@ -49,28 +49,80 @@ export class ManagerService {
   }
 
   deleteCategory(category:any):Observable<any>{
-    return this.http.delete(this.apiServerUrl+'/deleteCategory', category);
+    return this.http.put(this.apiServerUrl+'/deleteCategory', category);
   }
 
   deleteProduct(product:any):Observable<any>{
-    return this.http.delete(this.apiServerUrl+'/deleteProduct', product);
+    return this.http.put(this.apiServerUrl+'/deleteProduct', product);
   }
 
   deleteStoreProduct(storeProduct:any):Observable<any>{
-    return this.http.delete(this.apiServerUrl+'/deleteStoreProduct', storeProduct);
+    return this.http.put(this.apiServerUrl+'/deleteStoreProduct', storeProduct);
   }
 
   deleteEmployee(employee:any):Observable<any>{
-    return this.http.delete(this.apiServerUrl+'/deleteEmployee', employee);
+    console.log(employee);
+    return this.http.put(this.apiServerUrl+'/deleteEmployee', employee);
   }
 
   deleteCustomerCard(customerCard:any):Observable<any>{
-    return this.http.delete(this.apiServerUrl+'/deleteCustomerCard', customerCard);
+    return this.http.put(this.apiServerUrl+'/deleteCustomerCard', customerCard);
   }
 
   deleteCheck(check:any):Observable<any>{
-    return this.http.delete(this.apiServerUrl+"deleteCheck", check);
+    return this.http.put(this.apiServerUrl+"/deleteCheck", check);
   }
 
+  getCategoryReport():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCategoryReport');
+  }
+  getProductReport():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getProductReport');
+  }
+  getStoreProductReport():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductReport');
+  }
+  getEmployeeReport():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getEmployeeReport');
+  }
+  getCustomerCardReport():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCustomerCardReport');
+  }
+
+  getEmployeesSortedBySurname():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCategoryReport');
+  }
+  getCashiersSortedBySurname():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCashiersSortedBySurname');
+  }
+  getCategoriesSortedByName():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCategoriesSortedByName');
+  }
+  getStoreProductsSortedByAmount():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductsSortedByAmount');
+  }
+  getEmployeesBySurname(surname:string):Observable<any[]>{
+    const data = {surname:surname};
+    return this.http.post<any[]>(this.apiServerUrl+'/getEmployeesBySurname', data);
+  }
+  getCustomersWithPercentSortedBySurname(percent:number):Observable<any[]>{
+    const data = {percent:percent};
+    return this.http.post<any[]>(this.apiServerUrl+'/getCustomersWithPercentSortedBySurname', data);
+  }
+  getChecksInfoOfCashierInPeriod(data:{idCashier:string, startDate:Date, endDate:Date}):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getChecksInfoOfCashierInPeriod', data);
+  }
+  getAllChecksInfoInPeriod(data:{startDate:Date, endDate:Date}):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getAllChecksInfoInPeriod', data);
+  }
+  getTotalIncomeFromChecksOfCashierInPeriod(data:{idCashier:string, startDate:Date,endDate:Date}):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getTotalIncomeFromChecksOfCashierInPeriod', data);
+  }
+  getTotalIncomeFromChecksInPeriod(data:{idCashier:string, startDate:Date,endDate:Date}):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getTotalIncomeFromChecksInPeriod', data);
+  }
+  getTotalAmountOfProductSoldInPeriod(data:{productName:string, startDate:Date,endDate:Date}):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getTotalAmountOfProductSoldInPeriod', data);
+  }
 
 }
