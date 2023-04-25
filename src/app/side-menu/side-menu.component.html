@@ -1,6 +1,7 @@
 <div class="container-fluid"  >
   <div class="row">
-    <div class="col-lg-3 bg-light">
+    <div>
+<!--      class="col-lg-3 bg-light"-->
       <nav class="nav flex-column">
         <a *ngFor="let menuItem of menuItems" class="nav-link" href="#" (click)="onButtonClickFunction.emit(menuItem); $event.preventDefault()">{{menuItem}}</a>
       </nav>
