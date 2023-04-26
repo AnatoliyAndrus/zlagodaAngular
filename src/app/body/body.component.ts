@@ -71,7 +71,39 @@ export class BodyComponent {
       case 'Update promo store products list':
         this.updatePromoProducts();
         break;
+      case 'Edit client': case 'Remove client':
+        this.getClientsToDropList(0);
+        break;
+      case 'Edit employee': case 'Remove employee':
+        this.getEmployeesToDropList(0);
+        break;
+      case 'Edit product': case 'Remove product':
+        this.getProductsToDropList(0);
+        break;
+      case 'Add store product':case 'Edit store product':
+        this.getStoreProductsToDropList(0);
+        this.getProductsToDropList(1);
+        break;
+      case 'Remove store product':
+        this.getStoreProductsToDropList(0);
+        break;
+      case 'Remove check':
+        this.getChecksToDropList(0);
+        break;
+      case 'Edit category': case 'Remove category': case 'Add product':
+        this.getCategoriesToDropList(0);
+        break;
+      case 'Show all clients sorted by surname':
+        this.getAllClientsSortedBySurname();
+        break;
+      case 'Show all categories sorted by name':
+        this.getCategoriesSortedByName();
+        break;
+      case 'Show all checks of cashier in period of time': case 'Show total income from all checks of cashier in period of time': case 'Show total income from all checks in period of time':
+        this.getCashiersToDropList(0);
+        break;
     }
+
     console.log(this.currentMenuItem);
   }
 
@@ -533,12 +565,127 @@ export class BodyComponent {
       )
       .subscribe();
   }
+  onShowAllClientsWithDiscountSortedBySurname(searchForm:NgForm){
+    console.log(searchForm.value)
+    // @ts-ignore
+    document.getElementById('show-all-clients-with-discount-sorted-by-surname-form').click();
+    this.managerService.getCustomersWithPercentSortedBySurname(searchForm.value)
+      .pipe(
+        tap((response:any[]) => {
+          console.log(response);
+          this.currentMenuItem = 'Show all clients with discount sorted by surname list';
+          this.currentItemsInList = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
 
+  onShowAllChecksOfCashierInPeriodOfTime(searchForm:NgForm){
+    console.log(searchForm.value)
+    // @ts-ignore
+    document.getElementById('show-show-all-checks-of-cashier-in-period-of-time-form').click();
+    this.managerService.getChecksInfoOfCashierInPeriod(searchForm.value)
+      .pipe(
+        tap((response:any[]) => {
+          console.log(response);
+          this.currentMenuItem = 'Show all checks of cashier in period of time list';
+          this.currentItemsInList = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+  onShowAllChecksInPeriodOfTime(searchForm:NgForm){
+    console.log(searchForm.value)
+    // @ts-ignore
+    document.getElementById('show-show-all-checks-in-period-of-time-form').click();
+    this.managerService.getAllChecksInfoInPeriod(searchForm.value)
+      .pipe(
+        tap((response:any[]) => {
+          console.log(response);
+          this.currentMenuItem = 'Show all checks in period of time';
+          this.currentItemsInList = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+  onShowTotalIncomeFromAllChecksOfCashierInPeriodOfTime(searchForm:NgForm){
+    console.log(searchForm.value)
+    // @ts-ignore
+    document.getElementById('show-total-income-from-all-checks-of-cashier-in-period-of-time-form').click();
+    this.managerService.getTotalIncomeFromChecksOfCashierInPeriod(searchForm.value)
+      .pipe(
+        tap((response:any) => {
+          console.log(response);
+          this.currentMenuItem = 'Show total income from all checks of cashier in period of time list';
+          this.currentValue = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+  onShowTotalIncomeFromAllChecksInPeriodOfTime(searchForm:NgForm){
+    console.log(searchForm.value)
+    // @ts-ignore
+    document.getElementById('show-total-income-from-all-checks-in-period-of-time-form').click();
+    this.managerService.getTotalIncomeFromChecksInPeriod(searchForm.value)
+      .pipe(
+        tap((response:any) => {
+          console.log(response);
+          this.currentMenuItem = 'Show total income from all checks in period of time list';
+          this.currentValue = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
 
   getAllProductsSortedByName(){
     this.mutualService.getProductsSortedByName().subscribe((result: any[]) => {
       this.currentItemsInList = result;
     });
+  }
+  getAllClientsSortedBySurname(){
+    this.mutualService.getCustomersSortedBySurname().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
+  getCategoriesSortedByName(){
+    this.managerService.getCategoriesSortedByName().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
+
+  deleteOldChecks(){
+    this.managerService.deleteOldChecks().subscribe();
   }
 
   //getters of data to drop lists
@@ -559,6 +706,36 @@ export class BodyComponent {
       this.dropListsItems[index] = result;
     });
   }
+  getEmployeesToDropList(index:number){
+    this.mutualService.getEmployeeList().subscribe((result: any[]) => {
+      console.log(result);
+      this.dropListsItems[index] = result;
+    });
+  }
+  getClientsToDropList(index:number){
+    this.mutualService.getCustomerCardList().subscribe((result: any[]) => {
+      console.log(result);
+      this.dropListsItems[index] = result;
+    });
+  }
+  getChecksToDropList(index:number){
+    this.mutualService.getCheckList().subscribe((result: any[]) => {
+      console.log(result);
+      this.dropListsItems[index] = result;
+    });
+  }
+  getCashiersToDropList(index:number){
+    this.mutualService.getCashiersList().subscribe((result: any[]) => {
+      console.log(result);
+      this.dropListsItems[index] = result;
+    });
+  }
+
+
+  ///
+  ///CASHIER MENU
+
+
 
 
 }

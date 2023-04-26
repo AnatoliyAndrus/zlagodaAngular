@@ -69,8 +69,10 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Edit employee'">
   <form #updateEmployeeForm="ngForm" id="update-employee-form" (ngSubmit)="onUpdateEmployee(updateEmployeeForm)">
     <div class="form-group">
-      <label for="idEditEmployee">Employee's ID: </label>
-      <input type="text" ngModel name="idEmployee" class="form-control" id="idEditEmployee" placeholder="Id Employee" required>
+      <label>Employee's ID: </label>
+      <select ngModel name="idEmployee" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="passwordEdit">New password: </label>
@@ -89,8 +91,8 @@
       <input type="text" ngModel name="emplPatronymic" class="form-control" id="emplPatronymicEdit" placeholder="Employee Patronymic">
     </div>
 
-    <mat-radio-group ngModel name = "emplRoleEdit" aria-label="New role: ">
-      <mat-radio-button value="Manager" [checked]="true">Manager</mat-radio-button>
+    <mat-radio-group ngModel name = "emplRole" aria-label="New role: ">
+      <mat-radio-button value="Manager">Manager</mat-radio-button>
       <mat-radio-button value="Cashier">Cashier</mat-radio-button>
     </mat-radio-group>
 
@@ -134,8 +136,10 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Remove employee'">
   <form #removeEmployeeForm="ngForm" id="remove-employee-form" (ngSubmit)="onRemoveEmployee(removeEmployeeForm)">
     <div class="form-group">
-      <label for="idEmployeeRemove">Employee's ID: </label>
-      <input type="text" ngModel name="idEmployee" class="form-control" id="idEmployeeRemove" placeholder="Id of Employee to remove" required>
+      <label>Employee's ID: </label>
+      <select ngModel name="idEmployee" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
     </div>
     <div class="modal-footer">
       <button [disabled]="removeEmployeeForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
@@ -150,8 +154,11 @@
       <input type="text" ngModel name="productName" class="form-control" id="productNameAdd" placeholder="Product name" required>
     </div>
     <div class="form-group">
-      <label for="categoryNameAdd">Category name: </label>
-      <input type="text" ngModel name="categoryName" class="form-control" id="categoryNameAdd" placeholder="Category name" required>
+      <label>Category name: </label>
+      <select ngModel name="categoryName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
+<!--      <input type="text" ngModel name="categoryName" class="form-control" id="categoryNameAdd" placeholder="Category name" required>-->
     </div>
     <div class="form-group">
       <label for="manufacturerAdd">Manufacturer: </label>
@@ -169,8 +176,11 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Edit product'">
   <form #updateProductForm="ngForm" id="update-product-form" (ngSubmit)="onUpdateProduct(updateProductForm)">
     <div class="form-group">
-      <label for="productNameEdit">Name: </label>
-      <input type="text" ngModel name="currentName" class="form-control" id="productNameEdit" placeholder="current product name" required>
+      <label>Name: </label>
+      <select ngModel name="currentName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
+<!--      <input type="text" ngModel name="currentName" class="form-control" id="productNameEdit" placeholder="current product name" required>-->
     </div>
     <div class="form-group">
       <label for="categoryNameEdit">New category name: </label>
@@ -196,8 +206,11 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Remove product'">
   <form #removeProductForm="ngForm" id="remove-product-form" (ngSubmit)="onRemoveProduct(removeProductForm)">
     <div class="form-group">
-      <label for="productNameRemove">Name: </label>
-      <input type="text" ngModel name="productName" class="form-control" id="productNameRemove" placeholder="product name" required>
+      <label>Name: </label>
+      <select ngModel name="productName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
+<!--      <input type="text" ngModel name="productName" class="form-control" id="productNameRemove" placeholder="product name" required>-->
     </div>
     <div class="modal-footer">
       <button [disabled]="removeProductForm.invalid" type="submit" class="btn btn-primary">Submit</button>
@@ -212,8 +225,11 @@
       <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCAdd" placeholder="UPC" required>
     </div>
     <div class="form-group">
-      <label for="storeProductNameAdd">Product name: </label>
-      <input type="text" ngModel name="productName" class="form-control" id="storeProductNameAdd" placeholder="product name" required>
+      <label>Product name: </label>
+      <select ngModel name="productName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[1]" ngValue="{{item}}">{{item}}</option>
+      </select>
+      <!--<input type="text" ngModel name="productName" class="form-control" id="storeProductNameAdd" placeholder="product name" required>-->
     </div>
     <div class="form-outline">
       <label class="form-label" for="sellingPriceAdd">Selling price: </label>
@@ -242,8 +258,18 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Edit store product'">
   <form #updateStoreProductForm="ngForm" id="update-store-product-form" (ngSubmit)="onUpdateStoreProduct(updateStoreProductForm)">
     <div class="form-group">
-      <label for="storeProductUPCEdit">UPC: </label>
-      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCEdit" placeholder="UPC" required>
+      <label>UPC: </label>
+      <select ngModel name="UPC" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
+<!--      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCEdit" placeholder="UPC" required>-->
+    </div>
+    <div class="form-group">
+      <label>Product name: </label>
+      <select ngModel name="productName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[1]" ngValue="{{item}}">{{item}}</option>
+      </select>
+      <!--      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCEdit" placeholder="UPC" required>-->
     </div>
     <div class="form-outline">
       <label class="form-label" for="sellingPriceEdit">New selling price: </label>
@@ -270,8 +296,11 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Remove store product'">
   <form #removeStoreProductForm="ngForm" id="remove-store-product-form" (ngSubmit)="onRemoveStoreProduct(removeStoreProductForm)">
     <div class="form-group">
-      <label for="storeProductUPCRemove">UPC: </label>
-      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCRemove" placeholder="UPC" required>
+      <label>UPC: </label>
+      <select ngModel name="UPC" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+      </select>
+<!--      <input type="text" ngModel name="UPC" class="form-control" id="storeProductUPCRemove" placeholder="UPC" required>-->
     </div>
     <div class="modal-footer">
       <button [disabled]="removeStoreProductForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
@@ -281,10 +310,6 @@
 
 <div class="modal-body" *ngIf="currentMenuItem==='Add client'">
   <form #addCustomerCardForm="ngForm" id="add-customer-card-form" (ngSubmit)="onAddCustomerCard(addCustomerCardForm)">
-    <div class="form-group">
-      <label for="cardNumberAdd">Card number: </label>
-      <input type="text" ngModel name="cardNumber" class="form-control" id="cardNumberAdd" placeholder="Card Number" required>
-    </div>
     <div class="form-group">
       <label for="custNameAdd">Customer name: </label>
       <input type="text" ngModel name="custName" class="form-control" id="custNameAdd" placeholder="Customer name" required>
@@ -314,7 +339,7 @@
     </div>
     <div class="slidecontainer">
       <label for="percentAdd">Percent: </label><br>
-      <input type="range" ngModel name="percent" min="0" max="100" value="50" class="slider" id="percentAdd">
+      <input type="range" ngModel name="percent" min="0" max="80" value="10" class="slider" id="percentAdd">
     </div>
 
     <div class="modal-footer">
@@ -325,8 +350,12 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Edit client'">
   <form #updateCustomerCardForm="ngForm" id="update-customer-card-form" (ngSubmit)="onUpdateCustomerCard(updateCustomerCardForm)">
     <div class="form-group">
-      <label for="cardNumberEdit">Card number: </label>
-      <input type="text" ngModel name="cardNumber" class="form-control" id="cardNumberEdit" placeholder="Card Number" required>
+      <label>Card number: </label>
+      <div class="form-group">
+        <select ngModel name="cardNumber" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+        </select>
+      </div>
     </div>
     <div class="form-group">
       <label for="custNameEdit">New customer name: </label>
@@ -357,7 +386,7 @@
     </div>
     <div class="slidecontainer">
       <label for="percentEdit">New percent: </label><br>
-      <input type="range" ngModel name="percent" min="0" max="100" value="50" class="slider" id="percentEdit">
+      <input type="range" ngModel name="percent" min="0" max="80" value="20" class="slider" id="percentEdit">
     </div>
 
     <div class="modal-footer">
@@ -368,8 +397,12 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Remove client'">
   <form #removeCustomerCardForm="ngForm" id="remove-customer-card-form" (ngSubmit)="onRemoveCustomerCard(removeCustomerCardForm)">
     <div class="form-group">
-      <label for="cardNumberRemove">Card number: </label>
-      <input type="text" ngModel name="cardNumber" class="form-control" id="cardNumberRemove" placeholder="Card Number" required>
+      <label>Card number: </label>
+      <div class="form-group">
+        <select ngModel name="cardNumber" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+        </select>
+      </div>
     </div>
     <div class="modal-footer">
       <button [disabled]="removeCustomerCardForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
@@ -380,8 +413,13 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Remove check'">
   <form #removeCheckForm="ngForm" id="remove-check-form" (ngSubmit)="onRemoveCheck(removeCheckForm)">
     <div class="form-group">
-      <label for="checkNumberRemove">Check number: </label>
-      <input type="text" ngModel name="checkNumber" class="form-control" id="checkNumberRemove" placeholder="check number" required>
+      <label>Check number: </label>
+      <div class="form-group">
+        <select ngModel name="checkNumber" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+        </select>
+      </div>
+<!--      <input type="text" ngModel name="checkNumber" class="form-control" id="checkNumberRemove" placeholder="check number" required>-->
     </div>
     <div class="modal-footer">
       <button [disabled]="removeCheckForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
@@ -403,8 +441,13 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Edit category'">
   <form #updateCategoryForm="ngForm" id="update-category-form" (ngSubmit)="onUpdateCategory(updateCategoryForm)">
     <div class="form-group">
-      <label for="currentCategoryNameEdit">Category name: </label>
-      <input type="text" ngModel name="currentName" class="form-control" id="currentCategoryNameEdit" placeholder="current category name" required>
+      <label>Category name: </label>
+      <div class="form-group">
+        <select ngModel name="currentName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+        </select>
+      </div>
+<!--      <input type="text" ngModel name="currentName" class="form-control" id="currentCategoryNameEdit" placeholder="current category name" required>-->
     </div>
     <div class="form-group">
       <label for="newCategoryNameEdit">New category name: </label>
@@ -418,8 +461,13 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Remove category'">
   <form #removeCategoryForm="ngForm" id="remove-category-form" (ngSubmit)="onRemoveCategory(removeCategoryForm)">
     <div class="form-group">
-      <label for="categoryCategoryNameRemove">Category name: </label>
-      <input type="text" ngModel name="categoryName" class="form-control" id="categoryCategoryNameRemove" placeholder="category name" required>
+      <label>Category name: </label>
+      <div class="form-group">
+        <select ngModel name="categoryName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option *ngFor="let item of dropListsItems[0]" ngValue="{{item}}">{{item}}</option>
+        </select>
+      </div>
+<!--      <input type="text" ngModel name="categoryName" class="form-control" id="categoryCategoryNameRemove" placeholder="category name" required>-->
     </div>
     <div class="modal-footer">
       <button [disabled]="removeCategoryForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
@@ -450,6 +498,7 @@
     </div>
   </form>
 </div>
+
 <div class="modal-body" *ngIf="currentMenuItem==='Total amount of product sold in concrete period'">
   <form #searchTotalForm="ngForm" id="total-amount-product-sold-in-period-form" (ngSubmit)="onTotalAmountOfProductSoldInPeriod(searchTotalForm)">
     <div class="form-group">
@@ -470,6 +519,7 @@
     </div>
   </form>
 </div>
+
 <div class="modal-body" *ngIf="currentMenuItem==='Get info by UPC'">
   <form #searchTotalForm="ngForm" id="get-info-by-upc-form" (ngSubmit)="onGetInfoByUPC(searchTotalForm)">
     <div class="form-group">
@@ -507,6 +557,98 @@
     </div>
   </form>
 </div>
+<div class="modal-body" *ngIf="currentMenuItem==='Show all clients with discount sorted by surname'">
+  <form #searchPercentForm="ngForm" id="show-all-clients-with-discount-sorted-by-surname-form" (ngSubmit)="onShowAllClientsWithDiscountSortedBySurname(searchPercentForm)">
+    <div>
+      <label class="form-label" for="clWithDisNumber">Discount:</label>
+      <input type="number" ngModel name = "percent" id="clWithDisNumber" class="form-control" />
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="searchPercentForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Show all checks of cashier in period of time'">
+  <form #checksOfCashierPeriod="ngForm" id="show-show-all-checks-of-cashier-in-period-of-time-form" (ngSubmit)="onShowAllChecksOfCashierInPeriodOfTime(checksOfCashierPeriod)">
+    <div class="form-group">
+      <label>Cashier ID: </label>
+      <select ngModel name="idCashier" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let cashier of dropListsItems[0]" selected ngValue="{{cashier}}">{{cashier}}</option>
+      </select>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="startDateSearchCheck">Start date</label>
+      <input type="date" ngModel name = "startDate" id="startDateSearchCheck" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="endDateSearchCheck">End date</label>
+      <input type="date" ngModel name = "endDate" id="endDateSearchCheck" class="form-control" required/>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="checksOfCashierPeriod.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Show all checks in period of time'">
+  <form #checksPeriod="ngForm" id="show-all-checks-in-period-of-time-form" (ngSubmit)="onShowAllChecksOfCashierInPeriodOfTime(checksPeriod)">
+    <div class="form-outline">
+      <label class="form-label" for="startDateSearchCheckInP">Start date</label>
+      <input type="date" ngModel name = "startDate" id="startDateSearchCheckInP" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="endDateSearchCheckInP">End date</label>
+      <input type="date" ngModel name = "endDate" id="endDateSearchCheckInP" class="form-control" required/>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="checksPeriod.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Show total income from all checks of cashier in period of time'">
+  <form #checksOfCashierPeriod="ngForm" id="show-total-income-from-all-checks-of-cashier-in-period-of-time-form" (ngSubmit)="onShowTotalIncomeFromAllChecksOfCashierInPeriodOfTime(checksOfCashierPeriod)">
+    <div class="form-group">
+      <label>Cashier ID: </label>
+      <select ngModel name="idCashier" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let cashier of dropListsItems[0]" selected ngValue="{{cashier}}">{{cashier}}</option>
+      </select>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="startDateSearchCheck2">Start date</label>
+      <input type="date" ngModel name = "startDate" id="startDateSearchCheck2" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="endDateSearchCheck2">End date</label>
+      <input type="date" ngModel name = "endDate" id="endDateSearchCheck2" class="form-control" required/>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="checksOfCashierPeriod.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Show total income from all checks in period of time'">
+  <form #checksOfCashierPeriod="ngForm" id="show-total-income-from-all-checks-in-period-of-time-form" (ngSubmit)="onShowTotalIncomeFromAllChecksInPeriodOfTime(checksOfCashierPeriod)">
+    <div class="form-group">
+      <label>Cashier ID: </label>
+      <select ngModel name="idCashier" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let cashier of dropListsItems[0]" selected ngValue="{{cashier}}">{{cashier}}</option>
+      </select>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="startDateSearchCheck2InP">Start date</label>
+      <input type="date" ngModel name = "startDate" id="startDateSearchCheck2InP" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="endDateSearchCheck2InP">End date</label>
+      <input type="date" ngModel name = "endDate" id="endDateSearchCheck2InP" class="form-control" required/>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="checksOfCashierPeriod.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+
 
 <app-list *ngIf="currentMenuItem==='Report employee'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Report clients'" [items]="currentItemsInList"></app-list>
@@ -525,3 +667,14 @@
 <app-list *ngIf="currentMenuItem==='Get info by UPC list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all promo products sorted by name/amount list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all non-promo products sorted by name/amount list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all clients sorted by surname'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all clients with discount sorted by surname list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all categories sorted by name'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all checks of cashier in period of time list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all checks in period of time list'" [items]="currentItemsInList"></app-list>
+<div *ngIf="currentMenuItem==='Show total income from all checks of cashier in period of time list'">
+  <p>Income: {{currentValue}}</p>
+</div>
+<div *ngIf="currentMenuItem==='Show total income from all checks in period of time list'">
+  <p>Income: {{currentValue}}</p>
+</div>

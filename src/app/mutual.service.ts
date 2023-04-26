@@ -61,6 +61,12 @@ export class MutualService {
     return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductListPresent');
   }
 
+  getCashiersList():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCashiersList');
+  }
+
+
+
 
 
 }

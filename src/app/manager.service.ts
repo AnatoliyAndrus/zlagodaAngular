@@ -127,5 +127,9 @@ export class ManagerService {
     return this.http.patch<boolean>(this.apiServerUrl+'/updatePromoStoreProductList', null);
   }
 
+  deleteOldChecks():Observable<any>{
+    return this.http.delete<any>(this.apiServerUrl+'/deleteOldChecks');
+  }
+
 
 }

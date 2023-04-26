@@ -11,6 +11,8 @@ import { BodyComponent } from './body/body.component';
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
+import { CashierComponent } from './cashier/cashier.component';
+import { CashierHeaderComponent } from './cashier-header/cashier-header.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio
     ManagerComponent,
     SideMenuComponent,
     BodyComponent,
+    CashierComponent,
+    CashierHeaderComponent,
   ],
   imports: [
     MatRadioModule,

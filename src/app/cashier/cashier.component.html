@@ -1,0 +1,13 @@
+<app-cashier-header (selectChecksCashier)="showChecksCashier()"
+                    (selectProductsCashier)="showProductsCashier()"
+                    (selectClientsCashier)="showClientsCashier()"
+                    (selectProfileCashier)="showProfileCashier()"
+                    (selectStoreProductsCashier)="showStoreProductsCashier()"></app-cashier-header>
+
+<app-body *ngIf="selectedHeaderOption==='profile'" [menuItems]="[]"></app-body>
+<app-body *ngIf="selectedHeaderOption==='products'" [menuItems]="['Show all products sorted by name', 'Search products by name', 'Show products of category by name']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='store_products'" [menuItems]="['Show all store products sorted by name', 'Show all promotional products sorted by amount/name', 'Show all non-promotional products sorted by amount/name', 'Search price and amount of product by UPC']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='clients'" [menuItems]="['Show clients sorted by surname', 'Search clients by name', 'Add client', 'Edit client']"></app-body>
+<app-body *ngIf="selectedHeaderOption==='checks'" [menuItems]="['Add check', 'Show today checks of cashier', 'Show checks of cashier in period', 'Show info of check by check number']"></app-body>
+
+<!--<app-body *ngIf="selectedHeaderOption==='employees'"></app-body>-->

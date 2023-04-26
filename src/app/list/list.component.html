@@ -1,11 +1,14 @@
 <div class="table-responsive">
   <table class="table table-hover">
-    <thead>
+    <thead *ngIf="items.length!==0">
+      <th *ngFor="let key of getObjectKeys(items[0])">
+        {{key}}
+      </th>
     </thead>
     <tbody>
     <tr *ngFor="let item of items" class="clickable-row">
       <td *ngFor="let prop of getObjectKeys(item)">
-        {{prop}}:{{item[prop]}}
+        {{item[prop]}}
       </td>
     </tr>
     </tbody>
