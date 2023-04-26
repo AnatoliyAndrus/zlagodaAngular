@@ -5,6 +5,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, pipe, tap, toArray} from "rxjs";
 import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
 import {MutualService} from "../mutual.service";
+import {CashierService} from "../cashier.service";
 
 @Component({
   selector: 'app-body',
@@ -13,12 +14,14 @@ import {MutualService} from "../mutual.service";
 })
 export class BodyComponent {
 
+  cashierService:CashierService;
   managerService:ManagerService;
   mutualService:MutualService;
 
-  constructor(managerService:ManagerService, mutualService:MutualService) {
+  constructor(managerService:ManagerService, mutualService:MutualService, cashierService:CashierService) {
     this.managerService = managerService;
     this.mutualService = mutualService;
+    this.cashierService = cashierService;
   }
 
   currentMenuItem:string='';
@@ -101,6 +104,9 @@ export class BodyComponent {
         break;
       case 'Show all checks of cashier in period of time': case 'Show total income from all checks of cashier in period of time': case 'Show total income from all checks in period of time':
         this.getCashiersToDropList(0);
+        break;
+      case 'Show all store products sorted by name':
+        this.getStoreProductsSortedByName();
         break;
     }
 
@@ -735,6 +741,32 @@ export class BodyComponent {
   ///
   ///CASHIER MENU
 
+  onGetProductsByName(searchForm:NgForm){
+    console.log(searchForm.value)
+    // @ts-ignore
+    document.getElementById('get-products-by-name-form').click();
+    this.cashierService.getProductsByName(searchForm.value)
+      .pipe(
+        tap((response:any) => {
+          console.log(response);
+          this.currentMenuItem = 'Search products by name list';
+          this.currentItemsInList = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+  getStoreProductsSortedByName(){
+    this.cashierService.getStoreProductsSortedByName().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
 
 
 
