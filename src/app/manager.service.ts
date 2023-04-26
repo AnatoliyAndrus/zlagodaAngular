@@ -13,7 +13,7 @@ export class ManagerService {
   constructor(private http: HttpClient) { }
 
   addCategory(category: Category):Observable<Category>{
-    return this.http.post<Category>(this.apiServerUrl+'/createCategory', category);
+    return this.http.post<any>(this.apiServerUrl+'/createCategory', category);
   }
 
   addProduct(product: any):Observable<any>{
@@ -90,7 +90,7 @@ export class ManagerService {
   }
 
   getEmployeesSortedBySurname():Observable<any[]>{
-    return this.http.get<any[]>(this.apiServerUrl+'/getCategoryReport');
+    return this.http.get<any[]>(this.apiServerUrl+'/getEmployeesSortedBySurname');
   }
   getCashiersSortedBySurname():Observable<any[]>{
     return this.http.get<any[]>(this.apiServerUrl+'/getCashiersSortedBySurname');
@@ -101,12 +101,10 @@ export class ManagerService {
   getStoreProductsSortedByAmount():Observable<any[]>{
     return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductsSortedByAmount');
   }
-  getEmployeesBySurname(surname:string):Observable<any[]>{
-    const data = {surname:surname};
+  getEmployeesBySurname(data:{surname:string}):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getEmployeesBySurname', data);
   }
-  getCustomersWithPercentSortedBySurname(percent:number):Observable<any[]>{
-    const data = {percent:percent};
+  getCustomersWithPercentSortedBySurname(data:{percent:string}):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getCustomersWithPercentSortedBySurname', data);
   }
   getChecksInfoOfCashierInPeriod(data:{idCashier:string, startDate:Date, endDate:Date}):Observable<any[]>{
@@ -121,8 +119,13 @@ export class ManagerService {
   getTotalIncomeFromChecksInPeriod(data:{idCashier:string, startDate:Date,endDate:Date}):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getTotalIncomeFromChecksInPeriod', data);
   }
-  getTotalAmountOfProductSoldInPeriod(data:{productName:string, startDate:Date,endDate:Date}):Observable<any[]>{
-    return this.http.post<any[]>(this.apiServerUrl+'/getTotalAmountOfProductSoldInPeriod', data);
+  getTotalAmountOfProductSoldInPeriod(data:{productName:string, startDate:Date,endDate:Date}):Observable<any>{
+    return this.http.post<any>(this.apiServerUrl+'/getTotalAmountOfProductSoldInPeriod', data);
   }
+
+  updatePromoStoreProductList():Observable<boolean>{
+    return this.http.patch<boolean>(this.apiServerUrl+'/updatePromoStoreProductList', null);
+  }
+
 
 }

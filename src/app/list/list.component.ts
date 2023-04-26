@@ -10,6 +10,6 @@ export class ListComponent{
 
   getObjectKeys(obj: any) {
     console.log(obj);
-    return Object.keys(obj).filter(key=>{return obj[key]});
+    return Object.keys(obj).filter(key=>{return obj[key]!==null&&obj[key]!==undefined});
   }
 }

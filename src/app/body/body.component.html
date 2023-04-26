@@ -25,7 +25,7 @@
     </div>
 
     <mat-radio-group ngModel name = "emplRole" aria-label="Role: ">
-      <mat-radio-button value="Manager">Manager</mat-radio-button>
+      <mat-radio-button value="Manager" [checked]="true">Manager</mat-radio-button>
       <mat-radio-button value="Cashier">Cashier</mat-radio-button>
     </mat-radio-group>
 
@@ -90,7 +90,7 @@
     </div>
 
     <mat-radio-group ngModel name = "emplRoleEdit" aria-label="New role: ">
-      <mat-radio-button value="Manager">Manager</mat-radio-button>
+      <mat-radio-button value="Manager" [checked]="true">Manager</mat-radio-button>
       <mat-radio-button value="Cashier">Cashier</mat-radio-button>
     </mat-radio-group>
 
@@ -227,8 +227,9 @@
       <label class="form-label" for="expirationDateAdd">Expiration date</label>
       <input type="date" ngModel name = "expirationDate" id="expirationDateAdd" class="form-control" required/>
     </div>
-    <mat-radio-group ngModel name = "promotionalProduct" aria-label="Is promotional: ">
-      <mat-radio-button value="true">Yes</mat-radio-button>
+    <label for="isPromotionalAdd">Promotional: </label>
+    <mat-radio-group ngModel name = "promotionalProduct" aria-label="Is promotional: " id="isPromotionalAdd" >
+      <mat-radio-button value="true" [checked]="true">Yes</mat-radio-button>
       <mat-radio-button value="false">No</mat-radio-button>
     </mat-radio-group>
 
@@ -257,7 +258,7 @@
       <input type="date" ngModel name = "expirationDate" id="expirationDateEdit" class="form-control" required/>
     </div>
     <mat-radio-group ngModel name = "promotionalProduct" aria-label="Is promotional: ">
-      <mat-radio-button value="true">Is promotional</mat-radio-button>
+      <mat-radio-button value="true" [checked]="true">Is promotional</mat-radio-button>
       <mat-radio-button value="false">Is not promotional</mat-radio-button>
     </mat-radio-group>
 
@@ -425,10 +426,102 @@
     </div>
   </form>
 </div>
+<div class="modal-body" *ngIf="currentMenuItem==='Search by surname'">
+  <form #searchBySurnameForm="ngForm" id="search-by-surname-form" (ngSubmit)="onSearchBySurname(searchBySurnameForm)">
+    <div class="form-group">
+      <label for="employeeSurnameSearch">Surname: </label>
+      <input type="text" ngModel name="surname" class="form-control" id="employeeSurnameSearch" placeholder="surname" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="searchBySurnameForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Search by category sorted by name'">
+  <form #searchByCategorySortedByName="ngForm" id="search-product-by-category-form" (ngSubmit)="onSearchProductByCategoryName(searchByCategorySortedByName)">
+    <div class="form-group">
+      <select ngModel name="categoryName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let category of dropListsItems[0]" selected ngValue="{{category}}">{{category}}</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="searchByCategorySortedByName.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Total amount of product sold in concrete period'">
+  <form #searchTotalForm="ngForm" id="total-amount-product-sold-in-period-form" (ngSubmit)="onTotalAmountOfProductSoldInPeriod(searchTotalForm)">
+    <div class="form-group">
+      <select ngModel name="productName" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let product of dropListsItems[0]" selected ngValue="{{product}}">{{product}}</option>
+      </select>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="startDateSearchProduct">Start date</label>
+      <input type="date" ngModel name = "startDate" id="startDateSearchProduct" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="endDateSearchProduct">End date</label>
+      <input type="date" ngModel name = "endDate" id="endDateSearchProduct" class="form-control" required/>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="searchTotalForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Get info by UPC'">
+  <form #searchTotalForm="ngForm" id="get-info-by-upc-form" (ngSubmit)="onGetInfoByUPC(searchTotalForm)">
+    <div class="form-group">
+      <select ngModel name="UPC" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option *ngFor="let storeProduct of dropListsItems[0]" selected ngValue="{{storeProduct}}">{{storeProduct}}</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="searchTotalForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal-body" *ngIf="currentMenuItem==='Show all promo products sorted by name/amount'">
+  <form #searchPromoForm="ngForm" id="promotional-products-sorted-by-name-amount-form" (ngSubmit)="onShowPromotionalProductsSortedByNameAmount(searchPromoForm)">
+    <mat-radio-group ngModel name = "sortBy" aria-label="Sort by: ">
+      <label>Sort by: </label>
+      <mat-radio-button value="product_name" [checked]="true">Name</mat-radio-button>
+      <mat-radio-button value="products_number">Amount</mat-radio-button>
+    </mat-radio-group>
+    <div class="modal-footer">
+      <button [disabled]="searchPromoForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Show all non-promo products sorted by name/amount'">
+  <form #searchPromoForm="ngForm" id="non-promotional-products-sorted-by-name-amount-form" (ngSubmit)="onShowNonPromotionalProductsSortedByNameAmount(searchPromoForm)">
+    <mat-radio-group ngModel name = "sortBy" aria-label="Sort by: ">
+      <label>Sort by: </label>
+      <mat-radio-button value="product_name" [checked]="true">Name</mat-radio-button>
+      <mat-radio-button value="products_number">Amount</mat-radio-button>
+    </mat-radio-group>
+    <div class="modal-footer">
+      <button [disabled]="searchPromoForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
 
 <app-list *ngIf="currentMenuItem==='Report employee'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Report clients'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Report products'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Report store products'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Report categories'" [items]="currentItemsInList"></app-list>
-
+<app-list *ngIf="currentMenuItem==='Show all employees sorted by surname'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show cashiers sorted by surname'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Search by surname list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all products sorted by name'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Search product by category list'" [items]="currentItemsInList"></app-list>
+<div *ngIf="currentMenuItem==='Total amount of product sold in concrete period list'">
+  <p>Amount: {{currentValue}}</p>
+</div>
+<app-list *ngIf="currentMenuItem==='Show all store products sorted by amount'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Get info by UPC list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all promo products sorted by name/amount list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all non-promo products sorted by name/amount list'" [items]="currentItemsInList"></app-list>

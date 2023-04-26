@@ -26,9 +26,6 @@ export class MutualService {
   getProductList():Observable<any[]>{
     return this.http.get<any[]>(this.apiServerUrl+'/getProductList');
   }
-  getStoreProductList():Observable<any[]>{
-    return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductList');
-  }
   getEmployeeList():Observable<any[]>{
     return this.http.get<any[]>(this.apiServerUrl+'/getEmployeeList');
   }
@@ -55,6 +52,13 @@ export class MutualService {
   }
   getNonPromotionalProductsSorted(data:{sortBy:string}):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getNonPromotionalProductsSorted', data);
+  }
+
+  getStoreProductList():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductList');
+  }
+  getStoreProductListPresent():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getStoreProductListPresent');
   }
 
 
