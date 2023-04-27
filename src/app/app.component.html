@@ -3,10 +3,9 @@
   <div class="zlagoda">Zlagoda</div>
 </div>
 
-
-<app-cashier></app-cashier>
-
-<!--<app-manager></app-manager>-->
+<app-login-form *ngIf="userRole===''||userRole===null" (isAuthenticated)="changeUserRole()"></app-login-form>
+<app-cashier *ngIf="userRole==='Cashier'"></app-cashier>
+<app-manager *ngIf="userRole==='Manager'"></app-manager>
 
 
 

@@ -1,1 +1,15 @@
-<p>login-form works!</p>
+<div class="modal-body">
+  <form #f="ngForm" id="search-clients-by-surname-form" (ngSubmit)="loggingProcess(f)">
+    <div class="form-group">
+      <label for="idEm">Employee ID: </label>
+      <input type="text" ngModel name="idEmployee" class="form-control" id="idEM" placeholder="id" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password: </label>
+      <input type="text" ngModel name="password" class="form-control" id="password" placeholder="password" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="f.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>

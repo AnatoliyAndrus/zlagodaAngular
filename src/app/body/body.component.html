@@ -329,12 +329,12 @@
 <div class="modal-body" *ngIf="currentMenuItem==='Add client'">
   <form #addCustomerCardForm="ngForm" id="add-customer-card-form" (ngSubmit)="onAddCustomerCard(addCustomerCardForm)">
     <div class="form-group">
-      <label for="custNameAdd">Customer name: </label>
-      <input type="text" ngModel name="custName" class="form-control" id="custNameAdd" placeholder="Customer name" required>
-    </div>
-    <div class="form-group">
       <label for="custSurnameAdd">Customer surname: </label>
       <input type="text" ngModel name="custSurname" class="form-control" id="custSurnameAdd" placeholder="Customer surname" required>
+    </div>
+    <div class="form-group">
+      <label for="custNameAdd">Customer name: </label>
+      <input type="text" ngModel name="custName" class="form-control" id="custNameAdd" placeholder="Customer name" required>
     </div>
     <div class="form-group">
       <label for="custPatronymicAdd">Customer patronymic: </label>
@@ -753,17 +753,27 @@
     </div>
   </form>
 </div>
-<!--<form #myForm="ngForm">-->
-<!--  <div *ngFor="let item of items; let i = index;">-->
-<!--    <input type="text" name="item{{i}}" [(ngModel)]="items[i]" required>-->
-<!--    <button type="button" (click)="removeItem(i)">Remove</button>-->
-<!--  </div>-->
-<!--  <button type="button" (click)="addItem()">Add</button>-->
-<!--  <button type="submit">Save</button>-->
-<!--</form>-->
+
+<div class="modal-body" *ngIf="currentMenuItem==='Show info of check by check number'">
+  <form #searchTotalForm="ngForm" id="show-check-info-by-number-form" (ngSubmit)="onShowCheckInfoByCheckNumber(searchTotalForm)">
+    <div class="form-group">
+      <label>Check number: </label>
+      <div>
+        <select ngModel name="checkNumber" class="form-select form-select-sm" aria-label=".form-select-sm example">
+          <option *ngFor="let checkNumber of dropListsItems[0]" selected ngValue="{{checkNumber}}">{{checkNumber}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="searchTotalForm.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
 
 <app-list *ngIf="currentMenuItem==='Search products by name list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all store products sorted by name'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all promotional products sorted by amount/name'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Search clients by surname list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show today\'s checks'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show info of check by check number list'" [items]="currentItemsInList"></app-list>
 

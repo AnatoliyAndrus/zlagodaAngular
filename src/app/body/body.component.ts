@@ -118,6 +118,9 @@ export class BodyComponent {
         this.getPresentStoreProductsToDropList(0);
         this.getClientsToDropList(1);
         break;
+      case 'Show info of check by check number':
+        this.getChecksToDropList(0);
+        break;
     }
 
     console.log(this.currentMenuItem);
@@ -798,7 +801,6 @@ export class BodyComponent {
       )
       .subscribe();
   }
-
   getStoreProductsSortedByName(){
     this.cashierService.getStoreProductsSortedByName().subscribe((result: any[]) => {
       this.currentItemsInList = result;
@@ -830,19 +832,48 @@ export class BodyComponent {
   myForm: FormGroup = new FormGroup({
     idEmployee: new FormControl(''),
     cardNumber: new FormControl(''),
-    saleModels: new FormArray([])
+    sales: new FormArray([])
   });
 
-  get saleModels() {
-    return this.myForm.get('saleModels') as FormArray;
+
+  get sales() {
+    return this.myForm.get('sales') as FormArray;
   }
 
   addSale() {
-    this.saleModels.push(new FormGroup({
+    this.sales.push(new FormGroup({
       UPC: new FormControl(''),
       productNumber: new FormControl('')
     }));
   }
+
+  getAllChecksMadeToday(){
+    this.cashierService.getAllChecksMadeToday().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+      console.log(result);
+    });
+  }
+
+  onShowCheckInfoByCheckNumber(searchForm:NgForm){
+    console.log(searchForm)
+    // @ts-ignore
+    document.getElementById('show-check-info-by-number-form').click();
+    this.cashierService.getCheckInfoByCheckNumber(searchForm.value)
+      .pipe(
+        tap((response:any[]) => {
+          this.currentMenuItem = 'Show info of check by check number list';
+          this.currentItemsInList = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
 
 
 
