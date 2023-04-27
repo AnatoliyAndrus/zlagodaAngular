@@ -85,6 +85,7 @@ export class BodyComponent {
         break;
       case 'Edit product': case 'Remove product':
         this.getProductsToDropList(0);
+        this.getCategoriesToDropList(1);
         break;
       case 'Add store product':case 'Edit store product':
         this.getStoreProductsToDropList(0);
