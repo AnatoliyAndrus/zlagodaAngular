@@ -27,18 +27,19 @@ export class CashierService {
     return this.http.post<any>(this.apiServerUrl+'/createCheck', data);
   }
 
-  getAllChecksMadeInPeriod(data:any):Observable<any[]>{
-    return this.http.post<any[]>(this.apiServerUrl+'/getAllChecksMadeInPeriod', data);
-  }
 
-  getAllChecksMadeToday(data:any):Observable<any[]>{
+  getAllChecksMadeToday(data:{ idCashier:string }):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getAllChecksMadeToday', data);
   }
-  getCheckInfoByCheckNumber(data:any):Observable<any[]>{
+  getCheckInfoByCheckNumber(data: { idCashier:string }):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getCheckInfoByCheckNumber', data);
   }
 
   getSelfInfo(data:any):Observable<any>{
     return this.http.post<any[]>(this.apiServerUrl+'/getSelfInfo', data);
+  }
+
+  getSelfChecksMadeInPeriod(data:any):Observable<any>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getAllChecksMadeInPeriod', data);
   }
 }

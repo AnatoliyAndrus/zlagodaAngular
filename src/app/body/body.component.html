@@ -599,7 +599,7 @@
 </div>
 
 <div class="modal-body" *ngIf="currentMenuItem==='Show all checks of cashier in period of time'">
-  <form #checksOfCashierPeriod="ngForm" id="show-show-all-checks-of-cashier-in-period-of-time-form" (ngSubmit)="onShowAllChecksOfCashierInPeriodOfTime(checksOfCashierPeriod)">
+  <form #checksOfCashierPeriod="ngForm" id="show-all-checks-of-cashier-in-period-of-time-form" (ngSubmit)="onShowAllChecksOfCashierInPeriodOfTime(checksOfCashierPeriod)">
     <div class="form-group">
       <label>Cashier ID: </label>
       <select ngModel name="idCashier" class="form-select form-select-sm" aria-label=".form-select-sm example">
@@ -608,11 +608,11 @@
     </div>
     <div class="form-outline">
       <label class="form-label" for="startDateSearchCheck">Start date</label>
-      <input type="date" ngModel name = "startDate" id="startDateSearchCheck" class="form-control" required/>
+      <input type="date" ngModel name="startDate" id="startDateSearchCheck" class="form-control" required/>
     </div>
     <div class="form-outline">
       <label class="form-label" for="endDateSearchCheck">End date</label>
-      <input type="date" ngModel name = "endDate" id="endDateSearchCheck" class="form-control" required/>
+      <input type="date" ngModel name="endDate" id="endDateSearchCheck" class="form-control" required/>
     </div>
     <div class="modal-footer">
       <button [disabled]="checksOfCashierPeriod.invalid" type="submit" class="btn btn-primary" >Submit</button>
@@ -620,7 +620,7 @@
   </form>
 </div>
 <div class="modal-body" *ngIf="currentMenuItem==='Show all checks in period of time'">
-  <form #checksPeriod="ngForm" id="show-all-checks-in-period-of-time-form" (ngSubmit)="onShowAllChecksOfCashierInPeriodOfTime(checksPeriod)">
+  <form #checksPeriod="ngForm" id="show-all-checks-in-period-of-time-form" (ngSubmit)="onShowAllChecksInPeriodOfTime(checksPeriod)">
     <div class="form-outline">
       <label class="form-label" for="startDateSearchCheckInP">Start date</label>
       <input type="date" ngModel name = "startDate" id="startDateSearchCheckInP" class="form-control" required/>
@@ -775,12 +775,29 @@
   </form>
 </div>
 
+<div class="modal-body" *ngIf="currentMenuItem==='Show all your checks in period of time'">
+  <form #checksOfCashierPeriod="ngForm" id="self-checks-form" (ngSubmit)="onShowAllSelfChecksInPeriodOfTime(checksOfCashierPeriod)">
+    <div class="form-outline">
+      <label class="form-label" for="startDateSelf">Start date</label>
+      <input type="date" ngModel name="startDate" id="startDateSelf" class="form-control" required/>
+    </div>
+    <div class="form-outline">
+      <label class="form-label" for="endDateSelf">End date</label>
+      <input type="date" ngModel name="endDate" id="endDateSelf" class="form-control" required/>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="checksOfCashierPeriod.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+
 <app-list *ngIf="currentMenuItem==='Search products by name list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all store products sorted by name'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all promotional products sorted by amount/name'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Search clients by surname list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show today\'s checks'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show info of check by check number list'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Show all your checks in period of time list'" [items]="currentItemsInList"></app-list>
 
 
 <!--//SPECIAL-->

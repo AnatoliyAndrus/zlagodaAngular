@@ -618,7 +618,7 @@ export class BodyComponent {
       )
       .subscribe();
   }
-
+  // 'Show all your checks in period of time'
   onShowAllChecksOfCashierInPeriodOfTime(searchForm:NgForm){
     console.log(searchForm.value)
     // @ts-ignore
@@ -640,14 +640,14 @@ export class BodyComponent {
       .subscribe();
   }
   onShowAllChecksInPeriodOfTime(searchForm:NgForm){
-    console.log(searchForm.value)
+    console.log(searchForm.value);
     // @ts-ignore
-    document.getElementById('show-show-all-checks-in-period-of-time-form').click();
+    document.getElementById('show-all-checks-in-period-of-time-form').click();
     this.managerService.getAllChecksInfoInPeriod(searchForm.value)
       .pipe(
         tap((response:any[]) => {
           console.log(response);
-          this.currentMenuItem = 'Show all checks in period of time';
+          this.currentMenuItem = 'Show all checks in period of time list';
           this.currentItemsInList = response;
           searchForm.reset();
         }),
@@ -759,7 +759,7 @@ export class BodyComponent {
   }
   getChecksToDropList(index:number){
     this.mutualService.getCheckList().subscribe((result: any[]) => {
-      console.log(result);
+      console.log(result+"------------------------------------------------------");
       this.dropListsItems[index] = result;
     });
   }
@@ -829,6 +829,11 @@ export class BodyComponent {
     this.cashierService.addCheck(this.myForm.value)
       .pipe(
         tap((response:any) => {
+          this.myForm=new FormGroup({
+            idEmployee: new FormControl(''),
+            cardNumber: new FormControl(''),
+            saleModels: new FormArray([])
+          })
           this.currentMenuItem = 'Add check list';
           this.currentItemsInList = response;
           this.myForm.reset();
@@ -837,23 +842,24 @@ export class BodyComponent {
         catchError((error: HttpErrorResponse) => {
           alert(error.message);
           this.myForm.reset();
+          this.myForm=new FormGroup({
+            idEmployee: new FormControl(''),
+            cardNumber: new FormControl(''),
+            saleModels: new FormArray([])
+          })
           throw error;
         })
       )
       .subscribe();
   }
-
   myForm: FormGroup = new FormGroup({
     idEmployee: new FormControl(''),
     cardNumber: new FormControl(''),
     saleModels: new FormArray([])
   });
-
-
   get saleModels() {
     return this.myForm.get('saleModels') as FormArray;
   }
-
   addSale() {
     this.saleModels.push(new FormGroup({
       UPC: new FormControl(''),
@@ -869,33 +875,34 @@ export class BodyComponent {
   }
 
   onShowCheckInfoByCheckNumber(searchForm:NgForm){
-    console.log(searchForm)
+    console.log(searchForm.value);
     // @ts-ignore
     document.getElementById('show-check-info-by-number-form').click();
     this.cashierService.getCheckInfoByCheckNumber(searchForm.value)
+      .subscribe((response:any) => {
+        this.currentMenuItem = 'Show info of check by check number list';
+        this.currentItemsInList = [response];
+        searchForm.reset();});
+  }
+
+  onShowAllSelfChecksInPeriodOfTime(searchForm:NgForm){
+    console.log(searchForm.value)
+    searchForm.value.idCashier=this.globalService.idEmployee;
+    // @ts-ignore
+    document.getElementById('self-checks-form').click();
+    this.cashierService.getSelfChecksMadeInPeriod(searchForm.value)
       .pipe(
         tap((response:any[]) => {
-          this.currentMenuItem = 'Show info of check by check number list';
-          this.currentItemsInList = response;
           console.log(response);
+          this.currentMenuItem = 'Show all your checks in period of time list';
+          this.currentItemsInList = response;
           searchForm.reset();
-          this.myForm=new FormGroup({
-            idEmployee: new FormControl(''),
-            cardNumber: new FormControl(''),
-            saleModels: new FormArray([])
-          })
         }),
         catchError((error: HttpErrorResponse) => {
           alert(error.message);
           searchForm.reset();
-          this.myForm=new FormGroup({
-            idEmployee: new FormControl(''),
-            cardNumber: new FormControl(''),
-            saleModels: new FormArray([])
-          })
           throw error;
         })
-
       )
       .subscribe();
   }
