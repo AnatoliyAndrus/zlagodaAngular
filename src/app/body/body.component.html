@@ -657,12 +657,6 @@
 </div>
 <div class="modal-body" *ngIf="currentMenuItem==='Show total income from all checks in period of time'">
   <form #checksOfCashierPeriod="ngForm" id="show-total-income-from-all-checks-in-period-of-time-form" (ngSubmit)="onShowTotalIncomeFromAllChecksInPeriodOfTime(checksOfCashierPeriod)">
-    <div class="form-group">
-      <label>Cashier ID: </label>
-      <select ngModel name="idCashier" class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option *ngFor="let cashier of dropListsItems[0]" selected ngValue="{{cashier}}">{{cashier}}</option>
-      </select>
-    </div>
     <div class="form-outline">
       <label class="form-label" for="startDateSearchCheck2InP">Start date</label>
       <input type="date" ngModel name = "startDate" id="startDateSearchCheck2InP" class="form-control" required/>
