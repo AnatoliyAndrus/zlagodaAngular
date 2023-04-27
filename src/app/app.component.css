@@ -1,0 +1,56 @@
+@media print {
+  .page-header1 {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #f2f2f2;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+  }
+  .page-header1 .date {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .page-header1 .zlagoda {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .page-header2 {
+    display: flex !important;;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #f2f2f2;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+  }
+  .page-header2 .date {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .page-header2 .zlagoda {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+
+
+.page-header1{
+  display:none;
+}
+.page-header2{
+  display:none;
+}

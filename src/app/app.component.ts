@@ -15,6 +15,9 @@ export class AppComponent {
     console.log("nothing");
   }
 
+  //
+  currentDate:Date=new Date();
+
 
 }
 

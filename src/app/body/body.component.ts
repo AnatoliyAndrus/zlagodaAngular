@@ -1,11 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, NgForm} from "@angular/forms";
 import {ManagerService} from "../manager.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, pipe, tap, toArray} from "rxjs";
 import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
 import {MutualService} from "../mutual.service";
 import {CashierService} from "../cashier.service";
+import {GlobalService} from "../global.service";
 
 @Component({
   selector: 'app-body',
@@ -17,11 +18,13 @@ export class BodyComponent {
   cashierService:CashierService;
   managerService:ManagerService;
   mutualService:MutualService;
+  globalService:GlobalService;
 
-  constructor(managerService:ManagerService, mutualService:MutualService, cashierService:CashierService) {
+  constructor(managerService:ManagerService, mutualService:MutualService, cashierService:CashierService, globalService:GlobalService) {
     this.managerService = managerService;
     this.mutualService = mutualService;
     this.cashierService = cashierService;
+    this.globalService = globalService;
   }
 
   currentMenuItem:string='';
@@ -107,6 +110,13 @@ export class BodyComponent {
         break;
       case 'Show all store products sorted by name':
         this.getStoreProductsSortedByName();
+        break;
+      case 'Search clients by surname':
+        this.getClientsToDropList(0);
+        break;
+      case 'Add check':
+        this.getPresentStoreProductsToDropList(0);
+        this.getClientsToDropList(1);
         break;
     }
 
@@ -712,6 +722,12 @@ export class BodyComponent {
       this.dropListsItems[index] = result;
     });
   }
+  getPresentStoreProductsToDropList(index:number){
+    this.mutualService.getStoreProductListPresent().subscribe((result: any[]) => {
+      console.log(result);
+      this.dropListsItems[index] = result;
+    });
+  }
   getEmployeesToDropList(index:number){
     this.mutualService.getEmployeeList().subscribe((result: any[]) => {
       console.log(result);
@@ -749,7 +765,28 @@ export class BodyComponent {
       .pipe(
         tap((response:any) => {
           console.log(response);
+
           this.currentMenuItem = 'Search products by name list';
+          this.currentItemsInList = response;
+          searchForm.reset();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          searchForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+  onSearchClientsBySurname(searchForm:NgForm){
+    console.log(searchForm)
+    // @ts-ignore
+    document.getElementById('search-clients-by-surname-form').click();
+    this.cashierService.getClientsBySurname(searchForm.value)
+      .pipe(
+        tap((response:any[]) => {
+          this.currentMenuItem = 'Search clients by surname list';
           this.currentItemsInList = response;
           searchForm.reset();
         }),
@@ -767,6 +804,46 @@ export class BodyComponent {
       this.currentItemsInList = result;
     });
   }
+
+  onAddCheck(){
+    this.myForm.value.idEmployee=this.globalService.idEmployee;
+    console.log(this.myForm.value);
+    //@ts-ignore
+    document.getElementById('add-check-form').click();
+    this.cashierService.addCheck(this.myForm.value)
+      .pipe(
+        tap((response:any) => {
+          this.currentMenuItem = 'Add check list';
+          this.currentItemsInList = response;
+          this.myForm.reset();
+          console.log(response);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          this.myForm.reset();
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+  myForm: FormGroup = new FormGroup({
+    idEmployee: new FormControl(''),
+    cardNumber: new FormControl(''),
+    sales: new FormArray([])
+  });
+
+  get sales() {
+    return this.myForm.get('sales') as FormArray;
+  }
+
+  addSale() {
+    this.sales.push(new FormGroup({
+      UPC: new FormControl(''),
+      productNumber: new FormControl('')
+    }));
+  }
+
 
 
 

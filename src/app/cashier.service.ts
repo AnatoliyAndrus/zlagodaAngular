@@ -18,4 +18,12 @@ export class CashierService {
   getStoreProductsSortedByName():Observable<any[]>{
     return this.http.get<any[]>(this.apiServerUrl+"/getStoreProductsSortedByName");
   }
+
+  getClientsBySurname(data:{custSurname:string}):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getClientsBySurname', data);
+  }
+
+  addCheck(data:any):Observable<any>{
+    return this.http.post<any[]>(this.apiServerUrl+'/createCheck', data);
+  }
 }

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
 export class ListComponent{
 
@@ -13,4 +14,6 @@ export class ListComponent{
     return Object.keys(obj).map(
       key=>{if(key===null||key===undefined){return '';}else{return key;}});
   }
+
+
 }

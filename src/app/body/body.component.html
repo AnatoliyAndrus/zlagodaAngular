@@ -696,6 +696,7 @@
 <app-list *ngIf="currentMenuItem==='Show all categories sorted by name'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all checks of cashier in period of time list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all checks in period of time list'" [items]="currentItemsInList"></app-list>
+
 <div *ngIf="currentMenuItem==='Show total income from all checks of cashier in period of time list'">
   <p>Income: {{currentValue}}</p>
 </div>
@@ -705,19 +706,64 @@
 
 
 <!--CASHIER-->
+
 <div class="modal-body" *ngIf="currentMenuItem==='Search products by name'">
   <form #f="ngForm" id="get-products-by-name-form" (ngSubmit)="onGetProductsByName(f)">
     <div class="form-group">
       <label for="productNameSP">Name: </label>
-      <input type="text" ngModel name="productName" class="form-control" id="productNameSP" placeholder="Product name" required>
+      <input type="text" ngModel name="productName" class="form-control" id="productNameSP" placeholder="Enter product name" required>
     </div>
     <div class="modal-footer">
       <button [disabled]="f.invalid" type="submit" class="btn btn-primary" >Submit</button>
     </div>
   </form>
 </div>
+<div class="modal-body" *ngIf="currentMenuItem==='Search clients by surname'">
+  <form #f="ngForm" id="search-clients-by-surname-form" (ngSubmit)="onSearchClientsBySurname(f)">
+    <div class="form-group">
+      <label for="searchSurname">Surname: </label>
+      <input type="text" ngModel name="custSurname" class="form-control" id="searchSurname" placeholder="Enter surname" required>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="f.invalid" type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<div class="modal-body" *ngIf="currentMenuItem==='Add check'">
+  <form id="add-check-form" [formGroup]="myForm" (ngSubmit)="onAddCheck()">
+    <label>Card Number(optional):</label>
+    <select class="form-select form-select-sm" formControlName="cardNumber" aria-label=".form-select-sm example">
+      <option *ngFor="let card of dropListsItems[1]" ngValue="{{card}}">{{card}}</option>
+    </select>
+    <div formArrayName="sales">
+      <div *ngFor="let sale of sales.controls; let i=index">
+        <div [formGroupName]="i">
+          <label>Product:</label>
+          <select class="form-select form-select-sm" formControlName="UPC" aria-label=".form-select-sm example" required>
+            <option *ngFor="let upc of dropListsItems[0]" ngValue="{{upc}}">{{upc}}</option>
+          </select>
+          <label>Amount:</label>
+          <input type="number" formControlName="productNumber" min="1"  required/>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary" (click)="addSale()">Add product</button>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+  </form>
+</div>
+<!--<form #myForm="ngForm">-->
+<!--  <div *ngFor="let item of items; let i = index;">-->
+<!--    <input type="text" name="item{{i}}" [(ngModel)]="items[i]" required>-->
+<!--    <button type="button" (click)="removeItem(i)">Remove</button>-->
+<!--  </div>-->
+<!--  <button type="button" (click)="addItem()">Add</button>-->
+<!--  <button type="submit">Save</button>-->
+<!--</form>-->
 
 <app-list *ngIf="currentMenuItem==='Search products by name list'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all store products sorted by name'" [items]="currentItemsInList"></app-list>
 <app-list *ngIf="currentMenuItem==='Show all promotional products sorted by amount/name'" [items]="currentItemsInList"></app-list>
+<app-list *ngIf="currentMenuItem==='Search clients by surname list'" [items]="currentItemsInList"></app-list>
 
