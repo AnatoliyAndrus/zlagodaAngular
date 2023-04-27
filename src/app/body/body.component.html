@@ -735,8 +735,8 @@
     <select class="form-select form-select-sm" formControlName="cardNumber" aria-label=".form-select-sm example">
       <option *ngFor="let card of dropListsItems[1]" ngValue="{{card}}">{{card}}</option>
     </select>
-    <div formArrayName="sales">
-      <div *ngFor="let sale of sales.controls; let i=index">
+    <div formArrayName="saleModels">
+      <div *ngFor="let sale of saleModels.controls; let i=index">
         <div [formGroupName]="i">
           <label>Product:</label>
           <select class="form-select form-select-sm" formControlName="UPC" aria-label=".form-select-sm example" required>

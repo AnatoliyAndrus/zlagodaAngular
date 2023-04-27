@@ -830,15 +830,15 @@ export class BodyComponent {
   myForm: FormGroup = new FormGroup({
     idEmployee: new FormControl(''),
     cardNumber: new FormControl(''),
-    sales: new FormArray([])
+    saleModels: new FormArray([])
   });
 
-  get sales() {
-    return this.myForm.get('sales') as FormArray;
+  get saleModels() {
+    return this.myForm.get('saleModels') as FormArray;
   }
 
   addSale() {
-    this.sales.push(new FormGroup({
+    this.saleModels.push(new FormGroup({
       UPC: new FormControl(''),
       productNumber: new FormControl('')
     }));
