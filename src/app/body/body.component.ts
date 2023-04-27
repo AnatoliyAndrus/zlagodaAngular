@@ -440,7 +440,6 @@ export class BodyComponent {
   getCustomerCardReport(){
     this.managerService.getCustomerCardReport().subscribe((result: any[]) => {
       this.currentItemsInList = result;
-      console.log(result);
     });
   }
   getProductReport(){
