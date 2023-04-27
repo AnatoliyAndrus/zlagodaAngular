@@ -31,8 +31,8 @@ export class CashierService {
     return this.http.post<any[]>(this.apiServerUrl+'/getAllChecksMadeInPeriod', data);
   }
 
-  getAllChecksMadeToday():Observable<any[]>{
-    return this.http.get<any[]>(this.apiServerUrl+'/getAllChecksMadeToday');
+  getAllChecksMadeToday(data:any):Observable<any[]>{
+    return this.http.post<any[]>(this.apiServerUrl+'/getAllChecksMadeToday', data);
   }
   getCheckInfoByCheckNumber(data:any):Observable<any[]>{
     return this.http.post<any[]>(this.apiServerUrl+'/getCheckInfoByCheckNumber', data);

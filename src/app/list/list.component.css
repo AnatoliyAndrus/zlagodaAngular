@@ -1,0 +1,6 @@
+@media print{
+  .app-list{
+    position:fixed;
+    top:100px;
+  }
+}

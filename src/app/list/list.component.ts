@@ -15,5 +15,9 @@ export class ListComponent{
       key=>{if(key===null||key===undefined){return '';}else{return key;}});
   }
 
+  isArray(obj: any): boolean {
+    return Array.isArray(obj);
+  }
+
 
 }

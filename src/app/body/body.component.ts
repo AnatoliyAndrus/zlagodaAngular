@@ -121,6 +121,21 @@ export class BodyComponent {
       case 'Show info of check by check number':
         this.getChecksToDropList(0);
         break;
+      case 'Show today\'s checks':
+        this.getAllChecksMadeToday();
+        break;
+      case 'Get cashiers who sold more than average':
+        this.getCashiersWhoSoldMoreThanAverage();
+        break;
+      case 'Get cashiers who sold all products':
+        this.getCashiersWhoSoldAllProducts();
+        break;
+      case 'Get clients who bought all products':
+        this.getClientsWhoBoughtAllProducts();
+        break;
+      case 'Get clients who spent more than average':
+        this.getClientsWhoBoughtMoreThanAverage();
+        break;
     }
 
     console.log(this.currentMenuItem);
@@ -411,7 +426,6 @@ export class BodyComponent {
   }
 
   updatePromoProducts(){
-    console.log('meme');
     this.managerService.updatePromoStoreProductList().subscribe();
   }
 
@@ -608,7 +622,7 @@ export class BodyComponent {
   onShowAllChecksOfCashierInPeriodOfTime(searchForm:NgForm){
     console.log(searchForm.value)
     // @ts-ignore
-    document.getElementById('show-show-all-checks-of-cashier-in-period-of-time-form').click();
+    document.getElementById('show-all-checks-of-cashier-in-period-of-time-form').click();
     this.managerService.getChecksInfoOfCashierInPeriod(searchForm.value)
       .pipe(
         tap((response:any[]) => {
@@ -832,23 +846,23 @@ export class BodyComponent {
   myForm: FormGroup = new FormGroup({
     idEmployee: new FormControl(''),
     cardNumber: new FormControl(''),
-    sales: new FormArray([])
+    saleModels: new FormArray([])
   });
 
 
-  get sales() {
-    return this.myForm.get('sales') as FormArray;
+  get saleModels() {
+    return this.myForm.get('saleModels') as FormArray;
   }
 
   addSale() {
-    this.sales.push(new FormGroup({
+    this.saleModels.push(new FormGroup({
       UPC: new FormControl(''),
       productNumber: new FormControl('')
     }));
   }
 
   getAllChecksMadeToday(){
-    this.cashierService.getAllChecksMadeToday().subscribe((result: any[]) => {
+    this.cashierService.getAllChecksMadeToday({idCashier:this.globalService.idEmployee}).subscribe((result: any[]) => {
       this.currentItemsInList = result;
       console.log(result);
     });
@@ -863,19 +877,50 @@ export class BodyComponent {
         tap((response:any[]) => {
           this.currentMenuItem = 'Show info of check by check number list';
           this.currentItemsInList = response;
+          console.log(response);
           searchForm.reset();
+          this.myForm=new FormGroup({
+            idEmployee: new FormControl(''),
+            cardNumber: new FormControl(''),
+            saleModels: new FormArray([])
+          })
         }),
         catchError((error: HttpErrorResponse) => {
           alert(error.message);
           searchForm.reset();
+          this.myForm=new FormGroup({
+            idEmployee: new FormControl(''),
+            cardNumber: new FormControl(''),
+            saleModels: new FormArray([])
+          })
           throw error;
         })
+
       )
       .subscribe();
   }
 
 
-
-
+///special
+  getCashiersWhoSoldMoreThanAverage(){
+    this.managerService.getCashiersWhoSoldMoreThanAverage().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
+  getCashiersWhoSoldAllProducts(){
+    this.managerService.getCashiersWhoSoldAllProducts().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
+  getClientsWhoBoughtAllProducts(){
+    this.managerService.getClientsWhoBoughtAllProducts().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
+  getClientsWhoBoughtMoreThanAverage(){
+    this.managerService.getClientsWhoBoughtMoreThanAverage().subscribe((result: any[]) => {
+      this.currentItemsInList = result;
+    });
+  }
 
 }

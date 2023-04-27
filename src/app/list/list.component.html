@@ -1,5 +1,5 @@
 
-<div class="table-responsive">
+<div class="table-responsive app-list" *ngIf="items!==null&&items!==undefined">
   <table class="table table-hover">
     <thead *ngIf="items.length!==0">
       <th *ngFor="let key of getObjectKeys(items[0])">

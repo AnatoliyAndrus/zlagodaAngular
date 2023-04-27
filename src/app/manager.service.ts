@@ -131,5 +131,17 @@ export class ManagerService {
     return this.http.delete<any>(this.apiServerUrl+'/deleteOldChecks');
   }
 
+  getCashiersWhoSoldMoreThanAverage():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCashiersWhoSoldMoreThanAverage')
+  }
+  getCashiersWhoSoldAllProducts():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getCashiersWhoSoldAllProducts')
+  }
+  getClientsWhoBoughtAllProducts():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getClientsWhoBoughtAllProducts')
+  }
+  getClientsWhoBoughtMoreThanAverage():Observable<any[]>{
+    return this.http.get<any[]>(this.apiServerUrl+'/getClientsWhoBoughtMoreThanAverage')
+  }
 
 }
